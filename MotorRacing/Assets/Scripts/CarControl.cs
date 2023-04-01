@@ -15,6 +15,9 @@ public class CarControl : MonoBehaviour
         float speed = Input.GetAxis("Vertical") * maxTorque;
         float steer = Input.GetAxis("Horizontal") * maxSteerAngle;
 
+        print(speed);
+        print(steer);
+
         foreach (WheelElements wheel in wheelData)
         {
             if (wheel.shouldSteer)
@@ -41,6 +44,7 @@ public class CarControl : MonoBehaviour
             return;
         }
 
+        print("test");
         Transform tire = wheel.transform.GetChild(0);
 
         Vector3 position;

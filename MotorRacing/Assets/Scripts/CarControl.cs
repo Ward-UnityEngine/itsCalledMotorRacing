@@ -30,8 +30,8 @@ public class CarControl : MonoBehaviour
                 collider.rightWheel.motorTorque = speed;
             }
 
-            //doTires(collider.leftWheel);
-            //doTires(collider.rightWheel);
+            doTires(collider.leftWheel);
+            doTires(collider.rightWheel);
         }
     }
 
@@ -43,6 +43,8 @@ public class CarControl : MonoBehaviour
         Quaternion rotation;
 
         collider.GetWorldPose(out position, out rotation); 
+
+        rotation.eulerAngles = new Vector3(rotation.eulerAngles.x, rotation.eulerAngles.y, rotation.eulerAngles.z+90); 
 
         tire.transform.position = position;
         tire.transform.rotation = rotation;

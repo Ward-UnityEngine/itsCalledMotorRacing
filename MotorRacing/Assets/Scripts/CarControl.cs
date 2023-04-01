@@ -15,45 +15,38 @@ public class CarControl : MonoBehaviour
         float speed = Input.GetAxis("Vertical") * maxTorque;
         float steer = Input.GetAxis("Horizontal") * maxSteerAngle;
 
-        print(speed);
-        print(steer);
 
-        foreach (WheelElements wheel in wheelData)
+        foreach (WheelElements collider in wheelData)
         {
-            if (wheel.shouldSteer)
+            if (collider.shouldSteer)
             {
-                wheel.leftWheel.steerAngle = steer;
-                wheel.rightWheel.steerAngle = steer;
+                collider.leftWheel.steerAngle = steer;
+                collider.rightWheel.steerAngle = steer;
             }
 
-            if (wheel.addWheelTorque)
+            if (collider.addWheelTorque)
             {
-                wheel.leftWheel.motorTorque = speed;
-                wheel.rightWheel.motorTorque = speed;
+                collider.leftWheel.motorTorque = speed;
+                collider.rightWheel.motorTorque = speed;
             }
 
-            doTires(wheel.leftWheel);
-            doTires(wheel.rightWheel);
+            //doTires(collider.leftWheel);
+            //doTires(collider.rightWheel);
         }
     }
 
-    void doTires(WheelCollider wheel)
+    void doTires(WheelCollider collider)
     {
-        if (wheel.transform.childCount == 0)
-        {
-            return;
-        }
-
-        print("test");
-        Transform tire = wheel.transform.GetChild(0);
+        Transform tire = collider.transform.parent.transform.GetChild(1);
 
         Vector3 position;
         Quaternion rotation;
 
-        wheel.GetWorldPose(out position, out rotation); 
+        collider.GetWorldPose(out position, out rotation); 
 
         tire.transform.position = position;
         tire.transform.rotation = rotation;
+
     }
 }
 
